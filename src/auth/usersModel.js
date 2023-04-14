@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET || 'secretstring';
 
 const userModel = (sequelize, DataTypes) => {
-  const model = sequelize.define('MovieUsers', {
+  const model = sequelize.define('Users', {
     username: { type: DataTypes.STRING, required: true, unique: true },
     password: { type: DataTypes.STRING, required: true },
     role: { type: DataTypes.ENUM('user', 'writer', 'editor', 'admin'), required: true, defaultValue: 'user'},
@@ -32,6 +32,8 @@ const userModel = (sequelize, DataTypes) => {
         return acl[this.role];
       }
     }
+  }, {
+    tableName: 'MovieUser'
   });
 
   model.beforeCreate(async (user) => {
