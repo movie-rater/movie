@@ -1,6 +1,6 @@
 'use strict';
 
-const movieModel = (sequelize, DataTypes) => sequelize.define('Movies', {
+const movieModel = (sequelize, DataTypes) => sequelize.define('movieProj', {
   title: { type: DataTypes.STRING, required: true },
   rating: {
     type: DataTypes.INTEGER, 
