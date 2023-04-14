@@ -14,7 +14,8 @@ module.exports = async (req, res, next) => {
     req.user = await users.authenticateBasic(user, pass)
     next();
   } catch (e) {
-    _authError()
+    next('Invalid Login');
+    // _authError()
   }
 
   function _authError() {

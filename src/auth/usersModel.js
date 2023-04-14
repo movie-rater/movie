@@ -55,7 +55,7 @@ const userModel = (sequelize, DataTypes) => {
       if (user) { return user; }
       throw new Error("User Not Found");
     } catch (e) {
-      throw new Error(e.message)
+      throw new Error(e.message);
     }
   };
 
