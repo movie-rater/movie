@@ -24,33 +24,55 @@ router.put('/:model/:id',bearerAuth, permissions('update'), updateAMovie);
 router.delete('/:model/:id',bearerAuth, permissions('delete'), deleteAMovie);
 
 async function getAllMovies(req, res) {
-  let allRecords = await req.model.get();
-  res.status(200).json(allRecords);
+  try{
+    let allRecords = await req.model.get();
+    res.status(200).json(allRecords);
+  } catch (e) {
+    console.log('getAllMovies',e);
+  }
+
 }
 
 async function getAMovie(req, res) {
+  try {
   const id = req.params.id;
   let theRecord = await req.model.get(id)
   res.status(200).json(theRecord);
+} catch (e) {
+  console.log('getAMovie',e);
+}
 }
 
 async function createAMovie(req, res) {
+  try {
   let obj = req.body;
   let newRecord = await req.model.create(obj);
   res.status(201).json(newRecord);
+} catch (e) {
+  console.log('createAMovie',e);
+  next(e);
+}
 }
 
 async function updateAMovie(req, res) {
+  try {
   const id = req.params.id;
   const obj = req.body;
   let updatedRecord = await req.model.update(id, obj)
   res.status(200).json(updatedRecord);
+} catch (e) {
+  console.log('updateAMovie',e);
+}
 }
 
 async function deleteAMovie(req, res) {
+  try {
   let id = req.params.id;
   let deletedRecord = await req.model.delete(id);
   res.status(200).json(deletedRecord);
+} catch (e) {
+  console.log('deleteAMovie',e);
+}
 }
 
 
