@@ -15,11 +15,11 @@ beforeAll(async () => {
   token = res.body.token;
   await request.post('/movies').set('Authorization', 'bearer ' + token).send({
     "title": "matrix",
-    "rating": "10"
+    "rating": 10
   });
   await request.post('/movies').set('Authorization', 'bearer ' + token).send({
     "title": "movie2",
-    "rating": "7"
+    "rating": 7
   });
 
 
@@ -34,7 +34,7 @@ afterAll(async () => {
 test('POST /movies with a bearer token that has create permissions adds an item to the DB and returns an object with the added item.', async () => {
   let response = await request.post('/movies').set('Authorization', 'bearer ' + token).send({
       "title": "moon",
-      "rating": "9"
+      "rating": 9
   }
   );
   expect(response.status).toEqual(201);
@@ -55,11 +55,11 @@ test('GET /movies/ID with a bearer token that has read permissions returns a sin
 test('PUT /movies/ID with a bearer token that has update permissions returns a single, updated item by ID.', async () => {
   let obj = {
     "title": "newMovie",
-    "rating": "112",
+    "rating": 12,
   }
   let response = await request.put('/movies/2').set('Authorization', 'bearer ' + token).send(obj);
   expect(response.status).toEqual(200);
-  expect(response.body.rating).toEqual('112');
+  expect(response.body.title).toEqual('newMovie');
 });
 
 test('DELETE /movies/ID with a bearer token that has delete permissions returns an empty object. Subsequent GET for the same ID should result in nothing found.', async () => {

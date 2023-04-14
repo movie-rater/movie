@@ -2,12 +2,20 @@
 
 const movieModel = (sequelize, DataTypes) => sequelize.define('Movies', {
   title: { type: DataTypes.STRING, required: true },
-  rating: { type: DataTypes.INTEGER, required: true,
+  rating: {
+    type: DataTypes.INTEGER, 
     validate: {
-      min: 0,
-      max: 13
-    }
-   }
+      max: {
+        args: [13],
+        msg: "Maximum 13 in rating"
+      },
+      min: {
+        args: [0],
+        msg: "Minimum 0 in rating"
+      }
+    },
+    required: true
+  }
 });
 
 module.exports = movieModel;
