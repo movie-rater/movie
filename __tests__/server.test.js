@@ -16,7 +16,14 @@ beforeAll(async () => {
   await request.post('/movies').set('Authorization', 'bearer ' + token).send({
     "title": "matrix",
     "rating": "10"
-})});
+  });
+  await request.post('/movies').set('Authorization', 'bearer ' + token).send({
+    "title": "movie2",
+    "rating": "7"
+  });
+
+
+});
 
 
 afterAll(async () => {
@@ -50,13 +57,13 @@ test('PUT /movies/ID with a bearer token that has update permissions returns a s
     "title": "newMovie",
     "rating": "112",
   }
-  let response = await request.put('/movies/1').set('Authorization', 'bearer ' + token).send(obj);
+  let response = await request.put('/movies/2').set('Authorization', 'bearer ' + token).send(obj);
   expect(response.status).toEqual(200);
-  expect(response.body.rating).toEqual('122');
+  expect(response.body.rating).toEqual('112');
 });
 
 test('DELETE /movies/ID with a bearer token that has delete permissions returns an empty object. Subsequent GET for the same ID should result in nothing found.', async () => {
-  let response = await request.delete('/movies/1').set('Authorization', 'bearer ' + token);
+  let response = await request.delete('/movies/3').set('Authorization', 'bearer ' + token);
   expect(response.status).toEqual(200);
   expect(response.body.title).not.toBeTruthy;
 });

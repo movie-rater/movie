@@ -1,7 +1,5 @@
 'use strict';
 
-// process.env.SECRET = "TEST_SECRET";
-
 const { db } = require('../src/models/modelIndex');
 const supertest = require('supertest');
 const server  = require('../src/server');
@@ -19,6 +17,7 @@ test('POST /signup creates a new user and sends an object with the user and the 
   let response = await request.post('/signup').send({
     username: 'asd',
     password: 'asd',
+    role: 'admin'
 
   });
   expect(response.status).toEqual(201);
